@@ -1,5 +1,6 @@
 # env
 .python-version
+**/__pycache__/**
 
 # convert-nfd2nfc
 convert-nfd2nfc/src
