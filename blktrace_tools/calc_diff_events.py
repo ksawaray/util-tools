@@ -3,6 +3,18 @@ from typing import Tuple
 
 import pandas as pd
 
+"""
+Create input files
+The data is formatted as follows:
+
+$ blkparse <dev name> -a issue -f "%T.%t,%S,%N,%C\n" -q -o issue.csv
+$ blkparse <dev name> -a complete -f "%T.%t,%S,%N,%C\n" -q -o complete.csv
+
+Run script
+
+$ python calc_diff_events.py issue.csv complete.csv -o diff.csv
+"""
+
 def parse_args() -> Tuple[str, str, str]:
     parser = argparse.ArgumentParser(description="The program calculates the time difference between two events")
     parser.add_argument('fname1', type=str, help='blkparse output file1 (first event)')
