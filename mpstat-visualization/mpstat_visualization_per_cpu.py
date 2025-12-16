@@ -31,8 +31,12 @@ def visualize_mpstat_overlay(file_path):
     data_lines = data[data_start_index:].split('\n')
 
     for line in data_lines:
-        if re.match(r'^\d{2}:\d{2}:\d{2}\s+(all|\d+)', line.strip()):
+        #if re.match(r'^\d{2}:\d{2}:\d{2}\s+(all|\d+)', line.strip()):
+        if re.match(r'^\d{1,2}:\d{2}:\d{2}\s+(AM|PM)\s+(all|\d+)', line.strip()):
             lines.append(line.strip())
+
+    # AM/PM を削除（正規表現で対応）
+    lines = [re.sub(r"\s+(AM|PM)\b", "", line) for line in lines]
 
     # ヘッダーを付与してDataFrameとして読み込み
     mpstat_header = "Time CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle"

@@ -32,9 +32,13 @@ def visualize_mpstat(file_path):
 
         for line in data_lines:
             # 時刻と 'all' または 'CPU番号' を含む行を抽出（不要な空行や平均行を除く）
-            if re.match(r'^\d{2}:\d{2}:\d{2}\s+(all|\d+)', line.strip()):
+            #if re.match(r'^\d{2}:\d{2}:\d{2}\s+(all|\d+)', line.strip()):
+            if re.match(r'^\d{1,2}:\d{2}:\d{2}\s+(AM|PM)\s+(all|\d+)', line.strip()):
                 lines.append(line.strip())
                 header_found = True
+
+    # AM/PM を削除（正規表現で対応）
+    lines = [re.sub(r"\s+(AM|PM)\b", "", line) for line in lines]
 
     if not header_found:
         print("エラー: mpstatのデータ形式を認識できませんでした。")
