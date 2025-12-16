@@ -1,11 +1,8 @@
+import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
 from io import StringIO
 import re
-
-# ----------------- 設定 -----------------
-FILE_PATH = 'mpstat-test.log' # mpstatの出力ファイル名
-# ----------------------------------------
 
 def visualize_mpstat(file_path):
     """
@@ -98,5 +95,11 @@ def visualize_mpstat(file_path):
     plt.tight_layout()
     plt.show()
 
+# 引数からファイル名の取得
+parser = argparse.ArgumentParser(
+    description="mpstatログから種別ごとのCPU使用率を時間軸で可視化"
+)
+parser.add_argument("-f", "--file", required=True, help="mpstatの入力ファイルパス")
+args = parser.parse_args()
 # スクリプトの実行
-visualize_mpstat(FILE_PATH)
+visualize_mpstat(args.file)
